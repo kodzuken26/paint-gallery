@@ -1,13 +1,19 @@
 :root {
-   --bg-color: #ffffff;
+    --bg-color: #ffffff;
   --text-color: #000000;
   --btn-bg: #f0f0f0;
+  --search-bg-color: #fff;
+  --search-border: 1px solid #DEDEDE;
+  --search-border-active: 1px solid #575757;
   /* --header-height: 80px; */
 }
 body.dark {
-  --bg-color: #1a1a1a;
+  --bg-color: #121212;
   --text-color: #ffffff;
   --btn-bg: #333333;
+  --search-bg-color: #1A1818;
+  --search-border: none;
+  --search-border-active: 1px solid #DEDEDE;
 }
 
 body {
