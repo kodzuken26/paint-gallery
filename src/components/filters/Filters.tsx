@@ -17,7 +17,7 @@ function Filters() {
 
   if (!context) return null;
 
-  const { theme, toggleTheme } = context;
+  const { theme} = context;
     // const [searchTerm, setSearchTerm] = useState('');
 
     // const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase());

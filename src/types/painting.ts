@@ -1,5 +1,8 @@
+import type { IAuthors } from "./author";
+import type { ILocations } from "./location";
+
 export interface IPaintings {
-  authorid: number;
+  authorid: string;
   created: number;
   id: number;
   imageUrl: string;
@@ -8,7 +11,9 @@ export interface IPaintings {
 }
 
 export interface PaintingState {
-  paintings: IPaintings[];
+    paintings: IPaintings[];
+    authors: number;
+    locations: ILocations[];
   loading: boolean;
   error: null | string;
   page: number;
