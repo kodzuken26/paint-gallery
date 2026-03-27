@@ -1,7 +1,7 @@
 import arrowPrevLight from "../../assets/images/arrow-prev-light.png";
 import arrowPrevDark from "../../assets/images/arrow-prev-dark.png";
 import arrowNextLight from "../../assets/images/arrow-next-light.png";
-import arrowNextDark from "../../assets/images/arrow-prev-dark.png";
+import arrowNextDark from "../../assets/images/arrow-next-dark.png";
 
 import { useMemo, useState, type FC } from "react";
 import "./catalog.scss";
@@ -76,38 +76,54 @@ const Catalog: FC = () => {
 
   if (!context) return null;
 
-  const { theme} = context;
+  const { theme } = context;
   return (
     <>
       <div className="catalog-block">
         {paintingsWithDetails.map((element) => (
           <div key={element.id} className="painting-card">
-            <img
-              src={`https://test-front.framework.team${element.imageUrl}`}
-              alt={element.name}
-              className="painting-image"
-            />
+            <div className="painting-img-container">
+              <img
+                src={`https://test-front.framework.team${element.imageUrl}`}
+                alt={element.name}
+                className="painting-image"
+              />
+              <div className="text-block">
+                <div className="text-group1">
+                  <p className="heading-p">{element.name}</p>
+                  <p className="under-p">{element.created}</p>
+                </div>
+              </div>
+            </div>
 
-            <p>{element.name}</p>
-            <p>{element.created}</p>
-            <p>{element.authorName}</p>
-            <p>{element.locationName}</p>
+            {/* <div className="text-group">
+              <p className="heading-p">{element.name}</p>
+              <p className="under-p">{element.created}</p>
+            </div> */}
+            <div className="text-group">
+              <p className="heading-p">{element.authorName}</p>
+              <p className="under-p">{element.locationName}</p>
+            </div>
           </div>
         ))}
 
         <div className="pagination-block">
-          <button onClick={goToPrevPage} disabled={page === 1}>
+          <button
+            onClick={goToPrevPage}
+            disabled={page === 1}
+            className="page-btn"
+          >
             <img src={theme === "light" ? arrowPrevLight : arrowPrevDark} />
           </button>
 
-          <div>
+          <div className="pages-numbers">
             {pages.map((p) => (
-              <div key={p} onClick={() => goToPage(p)}>
+              <div key={p} onClick={() => goToPage(p)} className="page-p">
                 {p}
               </div>
             ))}
           </div>
-          <button onClick={goToNextPage}>
+          <button onClick={goToNextPage} className="page-btn">
             <img src={theme === "light" ? arrowNextLight : arrowNextDark} />
           </button>
         </div>

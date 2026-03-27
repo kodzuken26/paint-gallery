@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "InterLight";
+  src: url(../../assets/fonts/Inter/static/Inter_18pt-Light.ttf);
+}
+@font-face {
+  font-family: "CormorantMedium";
+  src: url(../../assets/fonts/Cormorant_SC/CormorantSC-Medium.ttf);
+}
+.catalog-block {
+  display: grid;
+  grid-template-columns: 12fr 12fr 12fr;
+  margin: 32px;
+}
+
+.painting-img-container {
+  position: relative;
+  overflow: hidden;
+  width: 392px;
+  height: 260px;
+}
+
+.painting-image {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+.painting-image:hover {
+  transform: scale(1.2);
+}
+
+.heading-p {
+  font-family: "CormorantMedium", sans-serif;
+  font-size: 16px;
+  color: #121212;
+}
+
+.under-p {
+  font-family: "InterLight", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9B4B4B;
+}
+
+.text-group1 {
+  background-color: #FFFFFF;
+  top: 100%;
+  position: absolute;
+  border-left: 2px solid #9B4B4B;
+  padding-left: 15px;
+}
+
+.text-group {
+  border-left: 2px solid #9B4B4B;
+  padding-left: 15px;
+}
+
+.pagination-block {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages-numbers {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.page-p {
+  margin: 0 10px;
+  font-family: "InterLight", sans-serif;
+  transition: 0.2s;
+  padding-bottom: 2px;
+  color: #575757;
+}
+.page-p:hover {
+  border-bottom: 1px solid #9C9C9C;
+}
+
+.page-btn {
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  transition: 0.2s;
+  background-color: none;
+  height: 20px;
+  width: 20px;
+}
+.page-btn:hover {
+  background-color: var(--search-bg-color);
+}/*# sourceMappingURL=catalog.css.map */
