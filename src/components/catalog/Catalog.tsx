@@ -2,6 +2,8 @@ import arrowPrevLight from "../../assets/images/arrow-prev-light.png";
 import arrowPrevDark from "../../assets/images/arrow-prev-dark.png";
 import arrowNextLight from "../../assets/images/arrow-next-light.png";
 import arrowNextDark from "../../assets/images/arrow-next-dark.png";
+import searchImage from "../../assets/images/search_icon.png";
+import crossImage from "../../assets/images/cross_mini.png";
 
 import { useMemo, useState, type FC } from "react";
 import "./catalog.scss";
@@ -12,10 +14,19 @@ import {
 } from "../../store/paintApi";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import Filters from "../filters/Filters";
 
 const Catalog: FC = () => {
   const [page, setPage] = useState(1);
-  const limit = 6;
+    const limit = 6;
+    const totalPages = 6;
+
+    const [filters, setFilters] = useState({
+        authorId: '' as number | '',
+        locationId: '' as number | '',
+        yearFrom: '',
+        yearTo: ''
+    });
 
   const { data: paintings, isLoading: isLoadingPaintings } = useGetPaintsQuery({
     page,
@@ -29,8 +40,8 @@ const Catalog: FC = () => {
   console.log("Authors:", authors);
   console.log("Locations:", locations);
 
-  const totalPages = 6;
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  
+//   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   if (paintings && paintings[0]) {
     console.log("First painting authorid:", paintings[0].authorId);
@@ -60,17 +71,94 @@ const Catalog: FC = () => {
     return <div>Loading...</div>;
   }
 
-  const goToNextPage = () => {
-    setPage((prev) => prev + 1);
-  };
+    const getVisiblePages = () => {
+        const delta = 2; // Сколько страниц показывать с каждой стороны от текущей
+        const range: number[] = [];
+        
+        // Собираем страницы вокруг текущей (исключая первую и последнюю)
+        for (let i = Math.max(2, page - delta); i <= Math.min(totalPages - 1, page + delta); i++) {
+            range.push(i);
+        }
+        
+        const result: (number | string)[] = [1];
+        
+        // Добавляем многоточие перед диапазоном, если нужно
+        if (range[0] > 2) {
+            result.push('...');
+        }
+        
+        // Добавляем диапазон страниц
+        result.push(...range);
+        
+        // Добавляем многоточие после диапазона, если нужно
+        if (range[range.length - 1] < totalPages - 1) {
+            result.push('...');
+        }
+        
+        // Добавляем последнюю страницу
+        if (totalPages > 1) {
+            result.push(totalPages);
+        }
+        
+        return result;
+    };
 
-  const goToPrevPage = () => {
-    setPage((prev) => Math.max(1, prev - 1));
-  };
+    const visiblePages = getVisiblePages();
+    
 
-  const goToPage = (pageNum: number) => {
-    setPage(pageNum);
-  };
+    const goToNextPage = () => {
+        if (page < totalPages) {
+            setPage(prev => prev + 1);
+        }
+    };
+
+    const goToPrevPage = () => {
+        setPage(prev => Math.max(1, prev - 1));
+    };
+
+    const goToPage = (pageNum: number) => {
+        setPage(pageNum);
+    };
+
+    const filteredPaintings = useMemo(() => {
+        if (!paintings) return [];
+
+        return paintings.filter(painting => {
+            // Фильтр по автору
+            if (filters.authorId && painting.authorId !== filters.authorId) {
+                return false;
+            }
+
+            // Фильтр по локации
+            if (filters.locationId && painting.locationId !== filters.locationId) {
+                return false;
+            }
+
+            // Фильтр по году
+            if (filters.yearFrom && painting.created < parseInt(filters.yearFrom)) {
+                return false;
+            }
+            if (filters.yearTo && painting.created > parseInt(filters.yearTo)) {
+                return false;
+            }
+
+            return true;
+        });
+    }, [paintings, filters]);
+
+    const handleApplyFilters = (newFilters: any) => {
+        setFilters(newFilters);
+    };
+
+    const handleClearFilters = () => {
+        setFilters({
+            authorId: '',
+            locationId: '',
+            yearFrom: '',
+            yearTo: ''
+        });
+    };
+
 
   const context = useContext(ThemeContext);
 
@@ -79,7 +167,23 @@ const Catalog: FC = () => {
   const { theme } = context;
   return (
     <>
-      <div className="catalog-block">
+          <div className="catalog-block">
+              
+               <div className="menu">
+                <div className="searchInput">
+                    <img src={searchImage} alt="search" />
+                    <input type="text" placeholder="Painting title" />
+                    <img src={crossImage} alt="clean" />
+                </div>
+                
+                <Filters
+                    theme={theme}
+                    authors={authors || []}
+                    locations={locations || []}
+                    onApplyFilters={handleApplyFilters}
+                    onClearFilters={handleClearFilters}
+                />
+            </div>
         {paintingsWithDetails.map((element) => (
           <div key={element.id} className="painting-card">
             <div className="painting-img-container">
@@ -93,41 +197,49 @@ const Catalog: FC = () => {
                   <p className="heading-p">{element.name}</p>
                   <p className="under-p">{element.created}</p>
                 </div>
+                <div className="text-group2">
+                  <p className="heading-p">{element.authorName}</p>
+                <p className="under-p">{element.locationName}</p>
+                </div>
               </div>
-            </div>
-
-            {/* <div className="text-group">
-              <p className="heading-p">{element.name}</p>
-              <p className="under-p">{element.created}</p>
-            </div> */}
-            <div className="text-group">
-              <p className="heading-p">{element.authorName}</p>
-              <p className="under-p">{element.locationName}</p>
             </div>
           </div>
         ))}
 
-        <div className="pagination-block">
-          <button
-            onClick={goToPrevPage}
-            disabled={page === 1}
-            className="page-btn"
-          >
-            <img src={theme === "light" ? arrowPrevLight : arrowPrevDark} />
-          </button>
-
-          <div className="pages-numbers">
-            {pages.map((p) => (
-              <div key={p} onClick={() => goToPage(p)} className="page-p">
-                {p}
-              </div>
-            ))}
+              
+             
+        
           </div>
-          <button onClick={goToNextPage} className="page-btn">
-            <img src={theme === "light" ? arrowNextLight : arrowNextDark} />
-          </button>
-        </div>
-      </div>
+          
+           <div className="pagination-block">
+                <button
+                    onClick={goToPrevPage}
+                    disabled={page === 1}
+                    className="page-btn"
+                >
+                   <img src={theme === "light" ? arrowPrevLight : arrowPrevDark} />
+                </button>
+
+                <div className="pages-numbers">
+                    {visiblePages.map((p, index) => (
+                        <div
+                            key={index}
+                            onClick={() => typeof p === 'number' && goToPage(p)}
+                            className={`page-p ${p === page ? 'active' : ''} ${typeof p !== 'number' ? 'dots' : ''}`}
+                        >
+                            {p}
+                        </div>
+                    ))}
+                </div>
+
+                <button
+                    onClick={goToNextPage}
+                    disabled={page === totalPages}
+                    className="page-btn"
+                >
+                    <img src={theme === "light" ? arrowNextLight : arrowNextDark} />
+                </button>
+            </div>
     </>
   );
 };

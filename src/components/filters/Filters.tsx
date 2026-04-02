@@ -5,7 +5,7 @@ import crossDarkImage from "../../assets/images/cross_dark.png";
 import filterLightImage from "../../assets/images/filters_btn_light.png";
 import filterDarkImage from "../../assets/images/filters_btn_dark.png";
 
-import "./filters.scss";
+import styles from "./filters.module.scss";
 import { useState } from "react";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
@@ -23,14 +23,14 @@ function Filters() {
     // const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase());
     return (
         <>
-            <div className="menu">
-                <div className="search-input">
-                    <img src={theme === "light" ? searchImage : searchDarkImage} alt="search" className="search-img"/>
-                    <input type="text" placeholder="Painting title" className="search" />
-                    <img src={ theme === "light" ? crossImage : crossDarkImage} alt="clean" className="cross-img"/>
+            <div className={styles.menu}>
+                <div className={styles.searchInput}>
+                    <img src={theme === "light" ? searchImage : searchDarkImage} alt="search" className={styles.searchImg} />
+                    <input type="text" placeholder="Painting title" className={styles.search} />
+                    <img src={theme === "light" ? crossImage : crossDarkImage} alt="clean" className={styles.crossImg} />
                 </div>
-                <div className="filters-block">
-                    <img className="filters-btn" src={theme === "light" ?  filterLightImage : filterDarkImage} />
+                <div className={styles.filtersBlock}>
+                    <img className={styles.filtersBtn} src={theme === "light" ?  filterLightImage : filterDarkImage} />
                 </div>
             </div>
         </>

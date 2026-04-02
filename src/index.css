@@ -5,7 +5,9 @@
   --search-bg-color: #fff;
   --search-border: 1px solid #DEDEDE;
   --search-border-active: 1px solid #575757;
-  /* --header-height: 80px; */
+  --heading-text: #121212;
+  --accent-color: #9B4B4B;
+  --pagination-btn: #1212120D;
 }
 body.dark {
   --bg-color: #121212;
@@ -14,6 +16,9 @@ body.dark {
   --search-bg-color: #1A1818;
   --search-border: none;
   --search-border-active: 1px solid #DEDEDE;
+  --heading-text: #DEDEDE;
+  --accent-color: #AB8956;
+  --pagination-btn: #1A1818;
 }
 
 body {
