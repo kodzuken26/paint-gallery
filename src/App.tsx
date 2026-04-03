@@ -1,8 +1,6 @@
-import { useState } from "react";
 import Header from "./components/header/Header";
 import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
-import Filters from "./components/filters/Filters";
 import Catalog from "./components/catalog/Catalog";
 
 function App() {
@@ -11,8 +9,7 @@ function App() {
       <ThemeProvider>
         <div>
           <Header />
-                  <Filters />
-                  <Catalog/>
+          <Catalog />
         </div>
       </ThemeProvider>
     </>
