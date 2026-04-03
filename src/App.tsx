@@ -1,6 +1,6 @@
 import Header from "./components/header/Header";
 import { ThemeProvider } from "./context/ThemeContext";
-import "./index.css";
+import "./index.scss";
 import Catalog from "./components/catalog/Catalog";
 
 function App() {

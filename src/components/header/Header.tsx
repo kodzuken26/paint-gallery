@@ -3,7 +3,7 @@ import darkBtnImage from "../../assets/images/dark_btn.png";
 import logoDarkImage from "../../assets/images/logo_dark.png";
 import lightBtnImage from "../../assets/images/light_btn.png";
 
-import "./header.scss";
+import styles from "./header.module.scss";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 
@@ -16,18 +16,18 @@ function Header() {
 
   return (
     <>
-      <div className={`header-block ${theme}`}>
+      <div className={`${styles["headerBlock"]} ${styles[theme]}`}>
         <img
           src={theme === "light" ? logoLightImage : logoDarkImage}
           alt="logo-light"
-          className="logo"
+          className={styles.logo}
         />
         <img
           src={theme === "light" ? darkBtnImage : lightBtnImage}
           id="btn"
           alt="moon-btn "
           onClick={toggleTheme}
-          className="btn-theme"
+          className={styles.btnTheme}
         />
       </div>
     </>

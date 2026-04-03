@@ -1,16 +1,19 @@
 @font-face {
-    font-family: "InterLight";
-    src: url(../../assets/fonts/Inter/static/Inter_18pt-Light.ttf);
+  font-family: "InterLight";
+  src: url(../../assets/fonts/Inter/static/Inter_18pt-Light.ttf);
 }
 @font-face {
-    font-family: "CormorantMedium";
-    src: url(../../assets/fonts/Cormorant_SC/CormorantSC-Medium.ttf);
+  font-family: "CormorantMedium";
+  src: url(../../assets/fonts/Cormorant_SC/CormorantSC-Medium.ttf);
 }
 
 $font-light: "InterLight", sans-serif;
 $font-heading: "CormorantMedium", sans-serif;
 
-
+.loadingTitle {
+  font-family: $font-heading;
+  font-size: 16px;
+}
 
 .menu {
   display: flex;
@@ -24,6 +27,7 @@ $font-heading: "CormorantMedium", sans-serif;
 }
 
 .search {
+  font-family: $font-light;
   padding-left: 40px;
   width: 336px;
   height: 36px;
@@ -47,6 +51,8 @@ $font-heading: "CormorantMedium", sans-serif;
 
 .crossImg {
   position: absolute;
+  width: 12px;
+  height: 12px;
   right: 10px;
   top: 32%;
   cursor: pointer;
@@ -62,14 +68,12 @@ $font-heading: "CormorantMedium", sans-serif;
   cursor: pointer;
 }
 
-// Фильтры
 .filterOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
@@ -79,7 +83,7 @@ $font-heading: "CormorantMedium", sans-serif;
   right: 0;
   width: 400px;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--bg-color);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   overflow-y: auto;
@@ -87,16 +91,9 @@ $font-heading: "CormorantMedium", sans-serif;
 
 .filterHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
   padding: 20px 24px;
-  border-bottom: 1px solid #dedede;
-}
-
-.filterTitle {
-  font-size: 24px;
-  margin: 0;
-  color: #121212;
 }
 
 .filterClose {
@@ -113,21 +110,32 @@ $font-heading: "CormorantMedium", sans-serif;
 
 .filterContent {
   padding: 24px;
+  margin-top: 40px;
 }
 
 .filterGroup {
   margin-bottom: 24px;
 }
 
+.filterHeaderGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .filterLabel {
+  font-family: $font-heading;
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 8px;
-  color: #121212;
+  color: var(--heading-text);
+  text-transform: uppercase;
 }
 
 .customSelect {
   position: relative;
+  border: var(--search-border);
 }
 
 .selectHeader {
@@ -135,41 +143,46 @@ $font-heading: "CormorantMedium", sans-serif;
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border: 1px solid #dedede;
+  color: #575757;
+  font-size: 14px;
+  font-family: $font-light;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #ffffff;
-
-  &:hover {
-    border-color: #9b4b4b;
-  }
+  background-color: var(--search-bg-color, var(--bg-color));
 }
 
 .arrow {
   font-size: 10px;
-  color: #9b4b4b;
+  color: #575757;
 }
 
 .selectList {
+  font-family: $font-light;
+  font-size: 14px;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
+  border: var(--search-border);
   max-height: 200px;
   overflow-y: auto;
-  background-color: #ffffff;
+  background-color: var(--search-bg-color, var(--bg-color));
   border: 1px solid #dedede;
   border-top: none;
   border-radius: 0 0 4px 4px;
   z-index: 10;
+  &:focus {
+    border: var(--search-border-active);
+  }
 }
 
 .selectItem {
   padding: 10px 16px;
   cursor: pointer;
-
+  color: var(--text-filter-btn);
   &:hover {
-    background-color: #f5f5f5;
+    background-color: var(--bgc-filter-select);
   }
 
   &.active {
@@ -185,305 +198,329 @@ $font-heading: "CormorantMedium", sans-serif;
 }
 
 .yearInput {
+  width: 67px;
   flex: 1;
   padding: 12px 16px;
-  border: 1px solid #dedede;
+  border: var(--search-border);
   border-radius: 4px;
   font-size: 14px;
   outline: none;
-
+  color: var(--text-color);
+  font-family: $font-light;
+  background-color: var(--search-bg-color, var(--bg-color));
   &:focus {
-    border-color: #9b4b4b;
+    border: var(--search-border-active);
   }
 }
 
 .yearSeparator {
-  color: #9b4b4b;
+  color: #575757;
   font-weight: 500;
 }
 
 .filterButtons {
   display: flex;
+  justify-content: space-between;
   gap: 16px;
   margin-top: 32px;
   padding-top: 24px;
-  border-top: 1px solid #dedede;
 }
 
 .filterBtn {
-  flex: 1;
-  padding: 12px 24px;
-  border-radius: 4px;
+  margin-top: 50%;
+  text-align: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   transition: all 0.3s ease;
 }
 
 .clearBtn {
-  background-color: transparent;
-  border: 1px solid #dedede;
-  color: #121212;
+  font-family: $font-light;
+  font-weight: bold;
+  color: var(--text-filter-btn);
+  border-bottom: 1px solid var(--text-filter-btn);
 
   &:hover {
-    border-color: #9b4b4b;
-    color: #9b4b4b;
+    color: var(--text-color);
   }
 }
 
 .applyBtn {
-  background-color: #9b4b4b;
-  border: none;
-  color: #ffffff;
+  font-family: $font-light;
+  font-weight: bold;
+  color: var(--text-filter-btn);
+  border-bottom: 1px solid var(--text-filter-btn);
 
   &:hover {
-    background-color: #7a3a3a;
+    color: var(--text-color);
   }
 }
 
-
-// catalog.module.scss
 .noResults {
-  text-align: center;
+  text-align: left;
   padding: 60px 20px;
-  
-  p {
-    font-size: 18px;
-    color: #121212;
+  font-family: $font-light;
+  font-size: 16px;
+  .p1 {
+    color: var(--search-no-result);
     margin-bottom: 20px;
   }
-  
-  button {
-    padding: 10px 24px;
-    background-color: #9B4B4B;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    
-    &:hover {
-      background-color: #7a3a3a;
-    }
+  .p2 {
+    color: #9c9c9c;
   }
 }
 
-
-
-.catalogBlock{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin: 0 auto;
-    padding: 0 100px;
-    max-width: 1240px;
-    width: 100%;
-    
+.catalogBlock {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin: 0 auto;
+  padding: 0 100px;
+  max-width: 1240px;
+  width: 100%;
 }
 .paintingImgContainer {
-    position: relative;
+  position: relative;
+  overflow: hidden;
+  width: 392px;
+  height: 260px;
+
+  .paintingImage {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
     overflow: hidden;
-    width: 392px;
-    height: 260px;
-    
-    .paintingImage {
-        width: 100%;
-        height: 100%;
-        transition: transform 0.5s ease;
-        overflow: hidden;
-        &:hover {
-            transform: scale(1.1);
-        }
-    }
-    
-    .textBlock {
-        position: absolute;
-        top: 69%;
-        left: 0;
-        background-color: var(--bg-color);
-        border-left: 2px solid var(--accent-color);
-        padding-left: 15px;
-        height: 42px;
-        width: 75%;
-        overflow: hidden;
-        
-        .textGroup1,
-        .textGroup2 {
-            transition: transform 0.4s ease, opacity 0.4s ease;
-            
-            p {
-                padding: 3px 0;
-                margin: 0;
-            }
-        }
-        
-        .textGroup1 {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .textGroup2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding-left: 15px;
-            margin-top: 20px;
-            transform: translateY(100%);
-            opacity: 0;
-        }
-    }
-    
     &:hover {
-        .textBlock {
-            .textGroup1 {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            
-            .textGroup2 {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+      transform: scale(1.1);
     }
-}
-.headingP{
-    font-family: $font-heading;
-    font-size: 16px;
-    color: var(--heading-text);
-}
-.underP{
-    font-family: $font-light;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent-color);
-}
-.textBlock{
-    padding: 20px 20px 20px 0;
+  }
+
+  .textBlock {
     position: absolute;
     top: 69%;
     left: 0;
-    background-color: #FFFFFF;  
-    border-left: 2px solid ;
+    background-color: var(--bg-color);
+    border-left: 2px solid var(--accent-color);
     padding-left: 15px;
     height: 42px;
     width: 75%;
-}
-.textGroup1{
-    p{
+    overflow: hidden;
+
+    .textGroup1,
+    .textGroup2 {
+      transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+
+      p {
         padding: 3px 0;
+        margin: 0;
+      }
     }
+
+    .textGroup1 {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .textGroup2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding-left: 15px;
+      margin-top: 20px;
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    .textBlock {
+      .textGroup1 {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      .textGroup2 {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
 }
-.textGroup2{
-    p{
-        padding: 3px 0;
-    }
+.headingP {
+  font-family: $font-heading;
+  font-size: 16px;
+  color: var(--heading-text);
+}
+.underP {
+  font-family: $font-light;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+.textBlock {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px 20px 0;
+  position: absolute;
+  top: 69%;
+  left: 0;
+  background-color: #ffffff;
+  border-left: 2px solid var(--accent-color);
+  padding-left: 15px;
+  height: 82px;
+  width: 75%;
+}
+.arrowRight {
+  position: absolute;
+  bottom: 2%;
+  left: 90%;
+  opacity: 0;
+  height: 100%;
+  background-color: var(--accent-color);
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  .arrow {
+    color: white;
+    font-size: 24px;
+  }
+}
+.textGroup1 {
+  p {
+    padding: 3px 0;
+  }
+}
+.textGroup2 {
+  p {
+    padding: 3px 0;
+  }
 }
 
-.paginationBlock{
-    margin: 20px 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+.paginationBlock {
+  margin: 20px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
-.pagesNumbers{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // gap: 20px;
+.pagesNumbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.pageP{
-    margin: 0 10px;
-    font-family: $font-light;
-    transition: 0.2s;
-    padding-bottom: 2px;
-    color: #575757;
-     cursor: pointer;
-    &:hover{
-        border-bottom: 1px solid #9C9C9C;
-    }
+.pageP {
+  margin: 0 10px;
+  font-family: $font-light;
+  transition: 0.2s;
+  padding-bottom: 2px;
+  color: #575757;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 1px solid #9c9c9c;
+  }
 }
-.pageBtn{
-    border: none;
-    text-align: center;
-    border-radius: 4px;
-    transition: 0.2s;
-    background-color: none;
-    height: 20px;
-    width: 20px;
-    background-color: var(--bg-color);
-    &:hover{
-        background-color: var(--pagination-btn);
-    }
+.pageBtn {
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  transition: 0.2s;
+  background-color: none;
+  height: 20px;
+  width: 20px;
+  background-color: var(--bg-color);
+  &:hover {
+    background-color: var(--pagination-btn);
+  }
 }
-@media screen and (min-width: 1001px) and (max-width: 1200px){
-    .catalogBlock{
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+  .catalogBlock {
     grid-template-columns: repeat(auto-fill, minmax(392px, 1fr));
     gap: 24px;
     max-width: 1200px;
     padding: 0 20px;
-    .textBlock{
-        top: 70%;
+    .textBlock {
+      top: 70%;
     }
-    }
-    .paintingImgContainer{
+  }
+  .paintingImgContainer {
     width: 372px;
     height: 260px;
-   }
+  }
 }
-@media screen and (min-width: 770px) and (max-width: 1000px){
-    .catalogBlock{
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .catalogBlock {
     grid-template-columns: repeat(auto-fill, minmax(352px, 1fr));
     gap: 24px;
     max-width: 728px;
     padding: 0 20px;
-    .textBlock{
-        top: 63%;
+    .textBlock {
+      top: 63%;
     }
-    }
-    .paintingImgContainer{
+  }
+  .paintingImgContainer {
     width: 352px;
     height: 220px;
-   }
+  }
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px){
-    .search{
-        width: 200px;
-    }
-    .catalogBlock{
+@media screen and (min-width: 321px) and (max-width: 767px) {
+  .arrowRight {
+    opacity: 1;
+  }
+  .search {
+    width: 200px;
+  }
+  .filterPanel {
+    width: 350px;
+  }
+  .filterBtn {
+    font-size: 14px;
+  }
+  .catalogBlock {
     grid-template-columns: repeat(auto-fill, minmax(352px, 1fr));
     gap: 24px;
     max-width: 728px;
     padding: 0 20px;
-    .textBlock{
-        top: 63%;
+    .textBlock {
+      top: 63%;
     }
-    }
-   .paintingImgContainer{
+  }
+  .paintingImgContainer {
     width: 352px;
     height: 220px;
-   }
+  }
 }
 
-@media (max-width: 320px){
-    .search{
-        width: 200px;
-    }
-    .catalogBlock{
+@media (max-width: 320px) {
+  .arrowRight {
+    opacity: 1;
+  }
+  .search {
+    width: 200px;
+  }
+  .filterPanel {
+    width: 250px;
+  }
+  .filterBtn {
+    font-size: 12px;
+  }
+  .catalogBlock {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 5px;
     max-width: 1280px;
     padding: 0 20px;
-    .textBlock{
-        top: 67%;
+    .textBlock {
+      top: 67%;
     }
-    }
-    .paintingImgContainer{
+  }
+  .paintingImgContainer {
     width: 280px;
     height: 185px;
-   }
-   .textBlock{
+  }
+  .textBlock {
     padding: 10px 10px 10px 0;
-   }
+  }
 }

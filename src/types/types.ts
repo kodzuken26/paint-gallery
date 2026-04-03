@@ -1,4 +1,3 @@
-// types/index.ts
 export interface Painting {
   id: number;
   name: string;
@@ -18,7 +17,6 @@ export interface Location {
   location: string;
 }
 
-// Расширенный тип для отображения
 export interface PaintingWithDetails extends Painting {
   authorName: string;
   locationName: string;
